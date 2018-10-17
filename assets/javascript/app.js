@@ -16,7 +16,7 @@ var triviaQuestions = {
         text: 'text for the question1',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'Answer 1',
-        image: 'image relating to the correct guess'
+        image: 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg'
     },
 
     'Q2' : {
@@ -86,8 +86,8 @@ var correctA=0;
 //incorrect answers counter
 var incorrectA=0;
 
-//set the keep running variable
-var keepRunning=true;
+
+var correct=false;
 
 //I'll need a component that evaluates whether the the user selected the right answer. Iterates whatever variable I'm using to track right guess and wrong guesses.
 function checkGuess(obj) {
@@ -97,10 +97,11 @@ function checkGuess(obj) {
             console.log('You selected ' + checkG);
             if (checkG===obj.correctAnswer) {
                 correctA++;
+                correct=true;
             } else {incorrectA++;}
+            renderTitleCard(obj);
             console.log(correctA);
             console.log(incorrectA);
-            console.log(keepRunning);
         });
 
         $('.answer1').on("click", function(){
@@ -109,10 +110,11 @@ function checkGuess(obj) {
             console.log('You selected ' + checkG);
             if (checkG===obj.correctAnswer) {
                 correctA++;
+                correct=true;
             } else {incorrectA++;}
+            renderTitleCard(obj);
             console.log(correctA);
             console.log(incorrectA);
-            console.log(keepRunning);
         });
 
         $('.answer2').on("click", function(){
@@ -121,23 +123,23 @@ function checkGuess(obj) {
             console.log('You selected ' + checkG);
             if (checkG===obj.correctAnswer) {
                 correctA++;
+                correct=true;
             } else {incorrectA++;}
+            renderTitleCard(obj);
             console.log(correctA);
             console.log(incorrectA);
-            
-            console.log(keepRunning);
         });
 
         $('.answer3').on("click", function(){
-            keepRunning=false;
             var checkG=$(".answer3").text();
             console.log('You selected ' + checkG);
             if (checkG===obj.correctAnswer) {
                 correctA++;
+                correct=true;
             } else {incorrectA++;}
+            renderTitleCard(obj);
             console.log(correctA);
             console.log(incorrectA);
-            console.log(keepRunning);
         });
 
 
@@ -147,6 +149,23 @@ function checkGuess(obj) {
 
 
 //after a guess is made, I'll need a component that builds the webpage between cards, with the gif or whatever
+function renderTitleCard(obj) {
+    $( '#triviaSpace').empty(); //empties out the previous stuff
+    var correctAnswer=$("<div id='correctAnswer'>");
+    correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
+    var verdict = $("<div class='verdict'>"); 
+    var image = $("<img src=" + obj.image  + ">");
+    if(correct) {
+        verdict.addClass("correct");
+        verdict.text("YOU ARE CORRECT!");
+    } else {
+        verdict.addClass("incorrect");
+        verdict.text("YOU ARE WRONG!");
+    }
+    $( '#triviaSpace').append(verdict).append(correctAnswer).append(image);
+
+
+}
 
 //I'll need a component that tracks time
 
