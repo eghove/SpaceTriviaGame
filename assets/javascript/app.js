@@ -10,11 +10,12 @@
 //trivia questions object
 
 $(document).ready(function() { //wrapping all of this in this onready function
+//Trivia questions object
 var triviaQuestions = {
     'Q1' : {
         text: 'text for the question1',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
+        correctAnswer: 'Answer 1',
         image: 'image relating to the correct guess'
     },
 
@@ -85,18 +86,98 @@ var correctA=0;
 //incorrect answers counter
 var incorrectA=0;
 
-//starting to build the function that will redner the questions
+//set the keep running variable
+var keepRunning=true;
+
+//I'll need a component that evaluates whether the the user selected the right answer. Iterates whatever variable I'm using to track right guess and wrong guesses.
+function checkGuess(obj) {
+        $('.answer0').on("click", function(){
+            keepRunning=false;
+            var checkG=$(".answer0").text();
+            console.log('You selected ' + checkG);
+            if (checkG===obj.correctAnswer) {
+                correctA++;
+            } else {incorrectA++;}
+            console.log(correctA);
+            console.log(incorrectA);
+            console.log(keepRunning);
+        });
+
+        $('.answer1').on("click", function(){
+            keepRunning=false;
+            var checkG=$(".answer1").text();
+            console.log('You selected ' + checkG);
+            if (checkG===obj.correctAnswer) {
+                correctA++;
+            } else {incorrectA++;}
+            console.log(correctA);
+            console.log(incorrectA);
+            console.log(keepRunning);
+        });
+
+        $('.answer2').on("click", function(){
+            keepRunning=false;
+            var checkG=$(".answer2").text();
+            console.log('You selected ' + checkG);
+            if (checkG===obj.correctAnswer) {
+                correctA++;
+            } else {incorrectA++;}
+            console.log(correctA);
+            console.log(incorrectA);
+            
+            console.log(keepRunning);
+        });
+
+        $('.answer3').on("click", function(){
+            keepRunning=false;
+            var checkG=$(".answer3").text();
+            console.log('You selected ' + checkG);
+            if (checkG===obj.correctAnswer) {
+                correctA++;
+            } else {incorrectA++;}
+            console.log(correctA);
+            console.log(incorrectA);
+            console.log(keepRunning);
+        });
+
+
+  
+};
+
+
+
+//after a guess is made, I'll need a component that builds the webpage between cards, with the gif or whatever
+
+//I'll need a component that tracks time
+
+//I'll need a component that builds the base page once the user decides to play
+
+//I'll need a component that reloads the game
+
+
+//Function that displays the questions and potential answers
 function renderQuestion(obj) {
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
-    var questionText = obj.text;
-    triviaBlock.text(questionText);
+    var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
+    questionText.text(obj.text); // pulls in the question text, puts it in the div for questionText
+    triviaBlock.append(questionText); // appends the questionText to the triviaBlock div
+    $( "#triviaSpace").append(triviaBlock); // Renders the trivia block so far
     //need to build the for loop for possible answers
-   // $( "#triviaSpace").append(triviaBlock);
+    for (i=0; i<4; i++) {
+        var answerBlock = $('<div class="answerBlock">'); 
+
+        answerBlock.text(obj.options[i]).addClass("answer" + i);
+        $( "#triviaSpace").append(answerBlock);
+    };
+    
+    
+   
 
 };
 
 renderQuestion(triviaQuestions.Q1);
+checkGuess(triviaQuestions.Q1);
 
 
 
