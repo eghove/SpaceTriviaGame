@@ -89,62 +89,24 @@ var incorrectA=0;
 
 var correct=false;
 
-//I'll need a component that evaluates whether the the user selected the right answer. Iterates whatever variable I'm using to track right guess and wrong guesses.
-function checkGuess(obj) {
-        $('.answer0').on("click", function(){
-            keepRunning=false;
-            var checkG=$(".answer0").text();
-            console.log('You selected ' + checkG);
-            if (checkG===obj.correctAnswer) {
-                correctA++;
-                correct=true;
-            } else {incorrectA++;}
-            renderTitleCard(obj);
-            console.log(correctA);
-            console.log(incorrectA);
-        });
-
-        $('.answer1').on("click", function(){
-            keepRunning=false;
-            var checkG=$(".answer1").text();
-            console.log('You selected ' + checkG);
-            if (checkG===obj.correctAnswer) {
-                correctA++;
-                correct=true;
-            } else {incorrectA++;}
-            renderTitleCard(obj);
-            console.log(correctA);
-            console.log(incorrectA);
-        });
-
-        $('.answer2').on("click", function(){
-            keepRunning=false;
-            var checkG=$(".answer2").text();
-            console.log('You selected ' + checkG);
-            if (checkG===obj.correctAnswer) {
-                correctA++;
-                correct=true;
-            } else {incorrectA++;}
-            renderTitleCard(obj);
-            console.log(correctA);
-            console.log(incorrectA);
-        });
-
-        $('.answer3').on("click", function(){
-            var checkG=$(".answer3").text();
-            console.log('You selected ' + checkG);
-            if (checkG===obj.correctAnswer) {
-                correctA++;
-                correct=true;
-            } else {incorrectA++;}
-            renderTitleCard(obj);
-            console.log(correctA);
-            console.log(incorrectA);
-        });
 
 
-  
-};
+//player selects a potential answer
+function checkGuess (obj) {
+    $( ".answerBlock").on("click", function(){
+        guessSelected=$(this).attr("id", ); //may not need this
+        guessText=$(this).text(); // takes the text from the answer selected, puts it here
+        if (guessText===obj.correctAnswer){ // checks to see if the answer guessed is the right answer
+            correctA++;
+            correct=true;
+        } else {
+            incorrectA++;
+            correct=false;};
+            renderTitleCard(obj) // moves on to the title card       
+    });
+
+
+}
 
 
 
@@ -186,7 +148,7 @@ function renderQuestion(obj) {
     for (i=0; i<4; i++) {
         var answerBlock = $('<div class="answerBlock">'); 
 
-        answerBlock.text(obj.options[i]).addClass("answer" + i);
+        answerBlock.text(obj.options[i]).attr("id", "answer" + i);
         $( "#triviaSpace").append(answerBlock);
     };
     
@@ -196,6 +158,7 @@ function renderQuestion(obj) {
 };
 
 renderQuestion(triviaQuestions.Q1);
+//checkGuess(triviaQuestions.Q1);
 checkGuess(triviaQuestions.Q1);
 
 
