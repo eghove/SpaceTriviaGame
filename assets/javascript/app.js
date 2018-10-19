@@ -1,7 +1,4 @@
 
-//Going to need some sort of object to store the following: 1. Question Text 2. Potential answer text. 3. Correct answer. 4. Something that happens when after a guess is made (a gif or a video or something)
-
-//Going to need variables to track correct answers and incorrect answers
 
 //some variables to hold timers
 
@@ -86,27 +83,28 @@ var correctA=0;
 //incorrect answers counter
 var incorrectA=0;
 
-
 var correct=false;
+
+var timesUp=false;
 
 
 
 //player selects a potential answer
 function checkGuess (obj) {
-    $( ".answerBlock").on("click", function(){
-        guessSelected=$(this).attr("id", ); //may not need this
-        guessText=$(this).text(); // takes the text from the answer selected, puts it here
-        if (guessText===obj.correctAnswer){ // checks to see if the answer guessed is the right answer
-            correctA++;
-            correct=true;
-        } else {
-            incorrectA++;
-            correct=false;};
-            renderTitleCard(obj) // moves on to the title card       
-    });
-
-
-}
+        console.log('onclick is active');
+        $( ".answerBlock").on("click", function(){
+            console.log('click function is fired!')
+            guessSelected=$(this).attr("id", ); //may not need this
+            guessText=$(this).text(); // takes the text from the answer selected, puts it here
+            if (guessText===obj.correctAnswer){ // checks to see if the answer guessed is the right answer
+                correctA++;
+                correct=true;
+            } else {
+                incorrectA++;
+                correct=false;};
+                renderTitleCard(obj) // moves on to the title card       
+        });
+    }; 
 
 
 
@@ -117,19 +115,69 @@ function renderTitleCard(obj) {
     correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
     var verdict = $("<div class='verdict'>"); 
     var image = $("<img src=" + obj.image  + ">");
-    if(correct) {
+    if (correct===true) {
         verdict.addClass("correct");
         verdict.text("YOU ARE CORRECT!");
-    } else {
+    }; 
+    if (correct===false) {
         verdict.addClass("incorrect");
         verdict.text("YOU ARE WRONG!");
-    }
+    }; 
+    if (timesUp===true) {
+        verdict.addClass("times-up");
+        verdict.text("TIME'S UP!");
+    };
+
     $( '#triviaSpace').append(verdict).append(correctAnswer).append(image);
-
-
 }
 
 //I'll need a component that tracks time
+var intervalId;
+
+var timerRunning=false;
+
+var timer = {
+    
+    time: 15, //sets initial time for questions and title card
+
+    reset: function() {
+        timer.time=15; // resets the initial time for questions and title card
+        timerRunning=false;
+        timesUp=false;
+    },
+
+    countdown: function() {
+        if(timer.time > 0) {
+            timer.time--;
+            timer.displayTime(); 
+        } 
+        if (timer.time===0) {
+            timesUp=true;
+            timer.stop();
+        }
+        console.log(timer.time);
+        console.log(timesUp);
+    },
+
+    start: function() {
+        if(!timerRunning) {
+        intervalId=setInterval(timer.countdown, 1000);
+        timerRunning=true;
+        }
+    },
+
+    stop: function() {
+        timerRunning=false;
+        clearInterval(intervalId);
+    },
+
+    displayTime: function() {
+        var result = timer.time;
+        $( "#timer" ).html('<p> Time Remaining: 00:' + result + '</p>');
+    }
+
+
+}
 
 //I'll need a component that builds the base page once the user decides to play
 
@@ -138,6 +186,9 @@ function renderTitleCard(obj) {
 
 //Function that displays the questions and potential answers
 function renderQuestion(obj) {
+    timer.reset();
+    timer.start();
+    timer.countdown();
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
     var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
@@ -147,26 +198,21 @@ function renderQuestion(obj) {
     //need to build the for loop for possible answers
     for (i=0; i<4; i++) {
         var answerBlock = $('<div class="answerBlock">'); 
-
         answerBlock.text(obj.options[i]).attr("id", "answer" + i);
         $( "#triviaSpace").append(answerBlock);
     };
-    
-    
-   
-
 };
 
+//game play
+
 renderQuestion(triviaQuestions.Q1);
-//checkGuess(triviaQuestions.Q1);
 checkGuess(triviaQuestions.Q1);
 
 
 
 
-//var triviaBlock = $( '<div>');
-//triviaBlock.text("Some awesome text");
 
-//$( "#triviaSpace").append(triviaBlock);
+
+
 
 }); //end of ready wrap function
