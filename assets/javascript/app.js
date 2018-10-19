@@ -87,6 +87,8 @@ var correct=false;
 
 var timesUp=false;
 
+var timer;
+
 
 
 //player selects a potential answer
@@ -110,6 +112,7 @@ function checkGuess (obj) {
 
 //after a guess is made, I'll need a component that builds the webpage between cards, with the gif or whatever
 function renderTitleCard(obj) {
+    $( "#timer").empty();
     $( '#triviaSpace').empty(); //empties out the previous stuff
     var correctAnswer=$("<div id='correctAnswer'>");
     correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
@@ -136,47 +139,21 @@ var intervalId;
 
 var timerRunning=false;
 
-var timer = {
-    
-    time: 15, //sets initial time for questions and title card
 
-    reset: function() {
-        timer.time=15; // resets the initial time for questions and title card
-        timerRunning=false;
-        timesUp=false;
-    },
 
-    countdown: function() {
-        if(timer.time > 0) {
-            timer.time--;
-            timer.displayTime(); 
-        } 
-        if (timer.time===0) {
-            timesUp=true;
-            timer.stop();
-        }
-        console.log(timer.time);
-        console.log(timesUp);
-    },
-
-    start: function() {
-        if(!timerRunning) {
-        intervalId=setInterval(timer.countdown, 1000);
-        timerRunning=true;
-        }
-    },
-
-    stop: function() {
-        timerRunning=false;
-        clearInterval(intervalId);
-    },
-
-    displayTime: function() {
-        var result = timer.time;
-        $( "#timer" ).html('<p> Time Remaining: 00:' + result + '</p>');
+function questionCountdown (secs, obj) {
+    if (secs < 1) {
+        clearTimeout(timer);
+        renderTitleCard(obj)
+        console.log("times up!");
+        //call some stuff
+    } else {
+    $( "#timer" ).html('<p> Time Remaining: 00:' + secs + '</p>');
+    renderQuestion(obj);
+    checkGuess(obj);
+    secs--;
+    timer = setTimeout(questionCountdown, 1000, secs, obj);
     }
-
-
 }
 
 //I'll need a component that builds the base page once the user decides to play
@@ -186,9 +163,9 @@ var timer = {
 
 //Function that displays the questions and potential answers
 function renderQuestion(obj) {
-    timer.reset();
-    timer.start();
-    timer.countdown();
+    //timer.reset();
+   // timer.start();
+    //timer.countdown();
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
     var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
@@ -205,10 +182,10 @@ function renderQuestion(obj) {
 
 //game play
 
-renderQuestion(triviaQuestions.Q1);
-checkGuess(triviaQuestions.Q1);
+//renderQuestion(triviaQuestions.Q1);
+//checkGuess(triviaQuestions.Q1);
 
-
+questionCountdown(15, triviaQuestions.Q1);
 
 
 
