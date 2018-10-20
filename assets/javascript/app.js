@@ -8,74 +8,74 @@
 
 $(document).ready(function() { //wrapping all of this in this onready function
 //Trivia questions object
-var triviaQuestions = {
-    'Q1' : {
+var triviaQuestions = [
+
+    {
         text: 'text for the question1',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'Answer 1',
         image: 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg'
     },
 
-    'Q2' : {
+
+
+    {
         text: 'text for the question2',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q3' : {
+    {
         text: 'text for the question3',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q4' : {
+    {
         text: 'text for the question4',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q5' : {
+    {
         text: 'text for the question5',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q6' : {
+    {
         text: 'text for the question6',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q7' : {
+    {
         text: 'text for the question7',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q8' : {
+    {
         text: 'text for the question8',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
-    'Q9' : {
+    {
         text: 'text for the question9',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
-    },
+    }
 
-    
-
-
-}
+];
 
 //correct answers counter
 var correctA=0;
@@ -190,7 +190,7 @@ function renderQuestion(obj) {
 //game play
 
 
-questionCountdown(15, triviaQuestions[0]);
+questionCountdown(15, triviaQuestions[6]);
 
 
 
