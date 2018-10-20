@@ -1,14 +1,12 @@
 
 
-//some variables to hold timers
-
 //GLOBAL VARIABLES
 
 //trivia questions object
 
 $(document).ready(function() { //wrapping all of this in this onready function
 
- //Trivia questions object grabbed these questions and facts from https://conversationstartersworld.com/space-trivia-questions/
+//Trivia questions object grabbed these questions and facts from https://conversationstartersworld.com/space-trivia-questions/ Image from Giphy
 var triviaQuestions = [
     {
         text: 'How many planets are there in our solar system?',
@@ -90,19 +88,23 @@ var correctA=0;
 //incorrect answers counter
 var incorrectA=0;
 
+//boolean for correct/incorrect answers
 var correct=false;
 
+//boolean to track if the user answered the question in proper amount of time
 var timesUp=false;
 
+//used in questionCountDown
 var timer;
 
+//used in tCardCountDown
 var tccardTimer;
 
+//used to iterate our way through the questions
 let loopcounter=0; 
 
 
-
-//CHECKS THE ANSWER THE USER SELECTS
+//CHECKS IF THE ANSWER THE USER SELECTS
 function checkGuess (obj) {
         //console.log('onclick is active');
         $( ".answerBlock").on("click", function(){
@@ -118,8 +120,6 @@ function checkGuess (obj) {
                 renderTitleCard(obj) // moves on to the title card       
         });
     }; 
-
-
 
 //RENDERS THE TITLE CARD BETWEEN QUESTIONS
 function renderTitleCard(obj) {
@@ -183,6 +183,8 @@ function questionCountdown (secs, obj) {
 
 //BUILDS THE QUESTIONS AND POTENTIAL ANSWERS
 function renderQuestion(obj) {
+    $('#timer').removeClass("hidden");
+    $("#triviaSpace").removeClass("hidden");
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
     var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
@@ -197,14 +199,16 @@ function renderQuestion(obj) {
     };
 };
 
+//CALLS questionCountdown for each each question
 function gamePlay () {
-    if(loopcounter < 9) {
+    if(loopcounter < triviaQuestions.length) {
         questionCountdown(15, triviaQuestions[loopcounter]);
     } else {
         gameOver();
     };
 }
 
+//RESETS THE GAME
 function reset() {
     correctA=0;
     incorrectA=0;
@@ -214,7 +218,7 @@ function reset() {
     questionCountdown(15, triviaQuestions[loopcounter]);
 }
 
-
+//WHAT HAPPENS WHEN THE GAME IS OVER
 function gameOver() {
     $( '#timer' ).empty() //empties out the timer div
     $( '#triviaSpace' ).empty() //empties out the triviaSpace Div
@@ -229,14 +233,14 @@ function gameOver() {
     })
 
 }
+
 //GAME PLAY
 
-
-
-
 //initial call
-questionCountdown(15, triviaQuestions[loopcounter]);
 
-
+$( "#start").on("click", function(){ // if the reset button is clicked, reset the game
+    reset();
+    $("#start").addClass("hidden");
+})
 
 }); //end of ready wrap function
