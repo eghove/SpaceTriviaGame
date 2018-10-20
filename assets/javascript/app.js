@@ -17,56 +17,56 @@ var triviaQuestions = {
     },
 
     'Q2' : {
-        text: 'text for the question',
+        text: 'text for the question2',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q3' : {
-        text: 'text for the question',
+        text: 'text for the question3',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q4' : {
-        text: 'text for the question',
+        text: 'text for the question4',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q5' : {
-        text: 'text for the question',
+        text: 'text for the question5',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q6' : {
-        text: 'text for the question',
+        text: 'text for the question6',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q7' : {
-        text: 'text for the question',
+        text: 'text for the question7',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q8' : {
-        text: 'text for the question',
+        text: 'text for the question8',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
     },
 
     'Q9' : {
-        text: 'text for the question',
+        text: 'text for the question9',
         options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
         correctAnswer: 'text of correct answer',
         image: 'image relating to the correct guess'
@@ -88,6 +88,8 @@ var correct=false;
 var timesUp=false;
 
 var timer;
+
+var tccardTimer;
 
 
 
@@ -112,7 +114,8 @@ function checkGuess (obj) {
 
 //after a guess is made, I'll need a component that builds the webpage between cards, with the gif or whatever
 function renderTitleCard(obj) {
-    $( "#timer").empty();
+    clearTimeout(timer);
+    tCardCountdown(10, obj);
     $( '#triviaSpace').empty(); //empties out the previous stuff
     var correctAnswer=$("<div id='correctAnswer'>");
     correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
@@ -135,24 +138,31 @@ function renderTitleCard(obj) {
 }
 
 //I'll need a component that tracks time
-var intervalId;
 
-var timerRunning=false;
-
+function tCardCountdown (secs, obj) {
+    if (secs < 1) {
+        clearTimeout(tccardTimer);
+        timesUp=false;
+    } else {
+    $( "#timer" ).html('<p> Time Until Next Question:' + secs + '</p>');
+    secs--;
+    tccardTimer = setTimeout(tCardCountdown, 1000, secs, obj);;
+    }
+}
 
 
 function questionCountdown (secs, obj) {
     if (secs < 1) {
         clearTimeout(timer);
+        timesUp=true;
         renderTitleCard(obj)
         console.log("times up!");
-        //call some stuff
     } else {
     $( "#timer" ).html('<p> Time Remaining: 00:' + secs + '</p>');
     renderQuestion(obj);
     checkGuess(obj);
     secs--;
-    timer = setTimeout(questionCountdown, 1000, secs, obj);
+    timer = setTimeout(questionCountdown, 1000, secs, obj);;
     }
 }
 
@@ -163,9 +173,6 @@ function questionCountdown (secs, obj) {
 
 //Function that displays the questions and potential answers
 function renderQuestion(obj) {
-    //timer.reset();
-   // timer.start();
-    //timer.countdown();
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
     var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
@@ -182,10 +189,11 @@ function renderQuestion(obj) {
 
 //game play
 
-//renderQuestion(triviaQuestions.Q1);
-//checkGuess(triviaQuestions.Q1);
 
-questionCountdown(15, triviaQuestions.Q1);
+questionCountdown(15, triviaQuestions[0]);
+
+
+
 
 
 
