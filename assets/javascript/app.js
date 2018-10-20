@@ -157,7 +157,7 @@ function tCardCountdown (secs, obj) {
         timesUp=false;
         gamePlay();
     } else {
-    $( "#timer" ).html('<p> Time Until Next Question:' + secs + '</p>');
+    $( "#timer" ).html('<p> Time Until Next Question: ' + secs + ' seconds</p>');
     secs--;
     tccardTimer = setTimeout(tCardCountdown, 1000, secs, obj);;
     }
@@ -172,7 +172,7 @@ function questionCountdown (secs, obj) {
         renderTitleCard(obj)
         console.log("times up!");
     } else {
-    $( "#timer" ).html('<p> Time Remaining: 00:' + secs + '</p>');
+    $( "#timer" ).html('<p> Time Remaining: ' + secs + ' seconds</p>');
     renderQuestion(obj);
     checkGuess(obj);
     secs--;
@@ -183,17 +183,19 @@ function questionCountdown (secs, obj) {
 
 //BUILDS THE QUESTIONS AND POTENTIAL ANSWERS
 function renderQuestion(obj) {
+    $(".ruleText").addClass("hidden");
     $('#timer').removeClass("hidden");
     $("#triviaSpace").removeClass("hidden");
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
-    var questionText = $('<div id="questionText">'); // creates the div for the Trivia Question
+    var questionText = $('<h3 id="questionText">'); // creates the div for the Trivia Question
     questionText.text(obj.text); // pulls in the question text, puts it in the div for questionText
+    questionText.append("<br><br>");
     triviaBlock.append(questionText); // appends the questionText to the triviaBlock div
     $( "#triviaSpace").append(triviaBlock); // Renders the trivia block so far
     //need to build the for loop for possible answers
     for (i=0; i<4; i++) {
-        var answerBlock = $('<div class="answerBlock">'); 
+        var answerBlock = $('<p class="answerBlock">'); 
         answerBlock.text(obj.options[i]).attr("id", "answer" + i);
         $( "#triviaSpace").append(answerBlock);
     };
@@ -222,10 +224,10 @@ function reset() {
 function gameOver() {
     $( '#timer' ).empty() //empties out the timer div
     $( '#triviaSpace' ).empty() //empties out the triviaSpace Div
-    var gameOver = $("<div id='gameOver'>");
+    var gameOver = $("<h2 id='gameOver'>");
     gameOver.text("GAME OVER!");
     var scoreBoard = $("<div id='scoreBoard'>")
-    scoreBoard.html('<h1>Correct Answers: ' + correctA + '</h1> <br> <h1>Incorrect Answers: ' + incorrectA + '</h1>');
+    scoreBoard.html('<h4>Correct Answers: ' + correctA + '</h4> <br> <h4>Incorrect Answers: ' + incorrectA + '</h4>');
     var resetButton=$("<button id='reset'>Play Again? </button>")
     $( '#triviaSpace' ).append(gameOver).append(scoreBoard).append(resetButton);
     $( "#reset").on("click", function(){ // if the reset button is clicked, reset the game
