@@ -7,72 +7,79 @@
 //trivia questions object
 
 $(document).ready(function() { //wrapping all of this in this onready function
-//Trivia questions object
+
+ //Trivia questions object grabbed these questions and facts from https://conversationstartersworld.com/space-trivia-questions/
 var triviaQuestions = [
-
     {
-        text: 'text for the question1',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'Answer 1',
-        image: 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg'
-    },
-
-
-
-    {
-        text: 'text for the question2',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'How many planets are there in our solar system?',
+        options: ['8', '9', '10', '7'],
+        correctAnswer: '8',
+        image: 'assets/images/pluto-flyby.gif',
+        fact: 'Four are terrestrial planets which include Mercury, Venus, Earth and Mars. The other four are giant planets which include Jupiter, Saturn, Uranus and Neptune. Pluto was declassified as a planet in August 2006. Sorry Pluto! In 2014, the hypothetical planet dubbed Planet Nine was discovered, but its existence has not yet been confirmed.'
     },
 
     {
-        text: 'text for the question3',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'What is the largest planet in our solar system?',
+        options: ['Saturn', 'Neptune', 'Jupiter', 'Mars'],
+        correctAnswer: 'Jupiter',
+        image: 'assets/images/jupiter.gif',
+        fact: 'Jupiter is the largest planet in our solar system in terms of mass, volume, and surface. Jupiter’s diameter is roughly 11 times that of Earth. Jupiter’s mass is one thousandth that of the sun but 2.5 times the mass of all the planets in our solar system combined.'
     },
 
     {
-        text: 'text for the question4',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'What is the most common type of star in the Milky Way?',
+        options: ['Yellow dwarf stars', 'Blue giant stars', 'Neutron stars', 'Red dwarf stars'],
+        correctAnswer: 'Red dwarf stars',
+        image: 'assets/images/calvin-hobs-stars.gif',
+        fact: 'Red dwarf stars make up an estimated ¾ of all stars found in the Milky Way. The surface temperature of red dwarf stars is less than 4,000 Kelvin, and they have a very low luminosity and therefore cannot be easily seen. In fact, from Earth not one red dwarf star can be seen with the naked eye.'
     },
 
     {
-        text: 'text for the question5',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'Which NASA space flight was the last manned mission to the moon?',
+        options: ['Apollo 17', 'Apollo 20', 'Ares 4', 'Luna 50'],
+        correctAnswer: 'Apollo 17',
+        image: 'assets/images/apollo17.gif',
+        fact: 'Apollo 17 launched on December 7, 1972, as the first night launch done by NASA. It was also the final mission of NASA’s Apollo program. Apollo 17 was the last time humans traveled beyond low Earth orbit. The mission also boasted that at the time it had the longest moon landing, largest lunar samples, longest time in orbit, and the longest total moonwalks.'
     },
 
     {
-        text: 'text for the question6',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'How many minutes was the shortest manned space flight?',
+        options: ['120', '10', '90', '15'],
+        correctAnswer: '15',
+        image: 'assets/images/liftoff.gif',
+        fact: 'This occurred on May 5, 1961 when Alan Shepard achieved an altitude of 115 miles in NASA’s Freedom 7. He was also the first American in space. Shepard later went on to become the oldest person to walk on the surface of the moon. He achieved this in 1971 during the Apollo 14 mission. At the time, he was 47 years old.'
     },
 
     {
-        text: 'text for the question7',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'How many moons are in our Solar System?',
+        options: ['40', '181', '263', '97'],
+        correctAnswer: '181',
+        image: 'assets/images/moon-silent-film.gif',
+        fact: "These moons (also known as natural satellites) vary greatly in size and quantity per planet. For example, the largest moon is Jupiter’s Ganymede, and the smallest is Mars's Deimos. Ganymede has a diameter of 3,273 miles, and Deimos has a diameter of 7 miles."
     },
 
     {
-        text: 'text for the question8',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'What is the largest type of star in the universe?',
+        options: ['Red supergiant stars', 'Blue supergiant stars', 'Neutron stars', 'Yellow dwarf stars'],
+        correctAnswer: 'Red supergiant stars',
+        image: 'assets/images/big-one.gif',
+        fact: "Red supergiant stars have the largest volume of all the stars in the known universe and are classified as K or M spectral types. Red supergiant stars are several hundreds, to over a thousand times, the radius of our sun. Many scientists believe that the star UY Scuti is the largest red supergiant star in the universe. It has a volume 5 billion times that of the Sun."
     },
 
     {
-        text: 'text for the question9',
-        options: ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4'],
-        correctAnswer: 'text of correct answer',
-        image: 'image relating to the correct guess'
+        text: 'What is the closest star to the Sun?',
+        options: ['Wolf 359', 'Sirius', 'Proxima Centauri', 'Epsilon Eridani'],
+        correctAnswer: 'Proxima Centauri',
+        image: 'assets/images/shatner.gif',
+        fact: "Proxima Centauri is a red dwarf star located in Alpha Centauri system, which is in the Centaurus constellation. Alpha Centauri is actually a triple star system with Proxima Centauri being the closest to the sun. It is 4.24 light years away from the Sun, and is not visible to the naked eye from Earth."
+    },
+
+    {
+        text: 'What is the farthest distance from Earth a manned mission has traveled?',
+        options: ['4 light-years', '41,652 miles', '248,655 miles', '12 parsecs'],
+        correctAnswer: '248,655 miles',
+        image: 'assets/images/houston-problem.gif',
+        fact: "This was achieved during the Apollo 13 mission which launched on April 11, 1970. During the mission an oxygen tank exploded. The explosion forced the crew to abort its mission to land on the moon. The Apollo 13 mission launched at 13:13 military time, and the explosion occurred two days after launch on April 13, 1970. That’s a lot of 13’s if you are the superstitious type!"
     }
 
 ];
