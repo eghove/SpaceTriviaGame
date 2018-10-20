@@ -91,9 +91,11 @@ var timer;
 
 var tccardTimer;
 
+let loopcounter=0; 
 
 
-//player selects a potential answer
+
+//CHECKS THE ANSWER THE USER SELECTS
 function checkGuess (obj) {
         console.log('onclick is active');
         $( ".answerBlock").on("click", function(){
@@ -112,7 +114,7 @@ function checkGuess (obj) {
 
 
 
-//after a guess is made, I'll need a component that builds the webpage between cards, with the gif or whatever
+//RENDERS THE TITLE CARD BETWEEN QUESTIONS
 function renderTitleCard(obj) {
     clearTimeout(timer);
     tCardCountdown(10, obj);
@@ -137,12 +139,13 @@ function renderTitleCard(obj) {
     $( '#triviaSpace').append(verdict).append(correctAnswer).append(image);
 }
 
-//I'll need a component that tracks time
-
+//TRACKS TIME IN THE TITLE CARD BETWEEN QUESTIONS
 function tCardCountdown (secs, obj) {
     if (secs < 1) {
+        loopcounter++;
         clearTimeout(tccardTimer);
         timesUp=false;
+        gamePlay();
     } else {
     $( "#timer" ).html('<p> Time Until Next Question:' + secs + '</p>');
     secs--;
@@ -151,6 +154,7 @@ function tCardCountdown (secs, obj) {
 }
 
 
+//TRACKS TIMES IN THE QUESTIONS, RUNS THE GAME
 function questionCountdown (secs, obj) {
     if (secs < 1) {
         clearTimeout(timer);
@@ -166,12 +170,8 @@ function questionCountdown (secs, obj) {
     }
 }
 
-//I'll need a component that builds the base page once the user decides to play
 
-//I'll need a component that reloads the game
-
-
-//Function that displays the questions and potential answers
+//BUILDS THE QUESTIONS AND POTENTIAL ANSWERS
 function renderQuestion(obj) {
     $("#triviaSpace").empty(); // empties out the previous stuff
     var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
@@ -187,16 +187,18 @@ function renderQuestion(obj) {
     };
 };
 
-//game play
+function gamePlay () {
+    if(loopcounter < 9) {
+        questionCountdown(15, triviaQuestions[loopcounter]);
+    } else {console.log("GAME OVER")};
+}
+//GAME PLAY
 
 
-questionCountdown(15, triviaQuestions[6]);
 
 
-
-
-
-
+//initial call
+questionCountdown(15, triviaQuestions[loopcounter]);
 
 
 
