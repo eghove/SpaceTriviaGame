@@ -104,7 +104,7 @@ let loopcounter=0;
 
 //CHECKS THE ANSWER THE USER SELECTS
 function checkGuess (obj) {
-        console.log('onclick is active');
+        //console.log('onclick is active');
         $( ".answerBlock").on("click", function(){
             console.log('click function is fired!')
             guessSelected=$(this).attr("id", ); //may not need this
@@ -128,6 +128,9 @@ function renderTitleCard(obj) {
     $( '#triviaSpace').empty(); //empties out the previous stuff
     var correctAnswer=$("<div id='correctAnswer'>");
     correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
+
+    var factText=$("<div id='factText'>");
+    factText.text(obj.fact);
     var verdict = $("<div class='verdict'>"); 
     var image = $("<img src=" + obj.image  + ">");
     if (correct===true) {
@@ -143,7 +146,7 @@ function renderTitleCard(obj) {
         verdict.text("TIME'S UP!");
     };
 
-    $( '#triviaSpace').append(verdict).append(correctAnswer).append(image);
+    $( '#triviaSpace').append(verdict).append(correctAnswer).append(factText).append(image);
 }
 
 //TRACKS TIME IN THE TITLE CARD BETWEEN QUESTIONS
@@ -197,7 +200,34 @@ function renderQuestion(obj) {
 function gamePlay () {
     if(loopcounter < 9) {
         questionCountdown(15, triviaQuestions[loopcounter]);
-    } else {console.log("GAME OVER")};
+    } else {
+        gameOver();
+    };
+}
+
+function reset() {
+    correctA=0;
+    incorrectA=0;
+    timesUp=false;
+    loopcounter=0; 
+    correct=false;
+    questionCountdown(15, triviaQuestions[loopcounter]);
+}
+
+
+function gameOver() {
+    $( '#timer' ).empty() //empties out the timer div
+    $( '#triviaSpace' ).empty() //empties out the triviaSpace Div
+    var gameOver = $("<div id='gameOver'>");
+    gameOver.text("GAME OVER!");
+    var scoreBoard = $("<div id='scoreBoard'>")
+    scoreBoard.html('<h1>Correct Answers: ' + correctA + '</h1> <br> <h1>Incorrect Answers: ' + incorrectA + '</h1>');
+    var resetButton=$("<button id='reset'>Play Again? </button>")
+    $( '#triviaSpace' ).append(gameOver).append(scoreBoard).append(resetButton);
+    $( "#reset").on("click", function(){ // if the reset button is clicked, reset the game
+        reset();
+    })
+
 }
 //GAME PLAY
 
