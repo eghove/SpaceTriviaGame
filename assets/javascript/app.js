@@ -106,9 +106,8 @@ let loopcounter=0;
 
 //CHECKS IF THE ANSWER THE USER SELECTS
 function checkGuess (obj) {
-        //console.log('onclick is active');
+        
         $( ".answerBlock").on("click", function(){
-            console.log('click function is fired!')
             guessSelected=$(this).attr("id", ); //may not need this
             guessText=$(this).text(); // takes the text from the answer selected, puts it here
             if (guessText===obj.correctAnswer){ // checks to see if the answer guessed is the right answer
@@ -170,7 +169,6 @@ function questionCountdown (secs, obj) {
         clearTimeout(timer);
         timesUp=true;
         renderTitleCard(obj)
-        console.log("times up!");
     } else {
     $( "#timer" ).html('<p> Time Remaining: ' + secs + ' seconds</p>');
     renderQuestion(obj);
