@@ -103,7 +103,7 @@ $(document).ready(function () {
   // CHECKS IF THE ANSWER THE USER SELECTS
   function checkGuess (obj) {
     $('.answerBlock').on('click', function () {
-      guessSelected = $(this).attr('id', );
+      guessSelected = $(this).attr('id');
       // takes the text from the answer selected, puts it here
       guessText = $(this).text();
       // checks to see if the answer guessed is the right answer
