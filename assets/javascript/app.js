@@ -104,136 +104,142 @@ $(document).ready(function () {
   function checkGuess (obj) {
     $('.answerBlock').on('click', function () {
       guessSelected = $(this).attr('id', );
-      guessText=$(this).text(); // takes the text from the answer selected, puts it here
-      if (guessText===obj.correctAnswer){ // checks to see if the answer guessed is the right answer
+      // takes the text from the answer selected, puts it here
+      guessText = $(this).text();
+      // checks to see if the answer guessed is the right answer
+      if (guessText === obj.correctAnswer) {
         correctA++;
-        correct=true;
+        correct = true;
       } else {
         incorrectA++;
-        correct=false;};
-      renderTitleCard(obj) // moves on to the title card       
+        correct = false;
+      };
+      // moves on to the title card
+      renderTitleCard(obj)
     });
-  }; 
+  };
 
-  //RENDERS THE TITLE CARD BETWEEN QUESTIONS
-  function renderTitleCard(obj) {
+  // RENDERS THE TITLE CARD BETWEEN QUESTIONS
+  function renderTitleCard (obj) {
     clearTimeout(timer);
     tCardCountdown(10, obj);
-    $( '#triviaSpace').empty(); //empties out the previous stuff
-    var correctAnswer=$("<div id='correctAnswer'>");
+    // empties out the previous stuff
+    $('#triviaSpace').empty();
+    var correctAnswer = $("<div id='correctAnswer'>");
     correctAnswer.text('The correct answer is: ' + obj.correctAnswer);
 
-    var factText=$("<div id='factText'>");
+    var factText = $("<div id='factText'>");
     factText.text(obj.fact);
-    var verdict = $("<div class='verdict'>"); 
-    var image = $("<img src=" + obj.image  + ">");
-    if (correct===true) {
-      verdict.addClass("correct");
-      verdict.text("YOU ARE CORRECT!");
-    }; 
-    if (correct===false) {
-      verdict.addClass("incorrect");
-      verdict.text("YOU ARE WRONG!");
-    }; 
-    if (timesUp===true) {
-      verdict.addClass("times-up");
+    var verdict = $("<div class='verdict'>");
+    // eslint-disable-next-line quotes
+    var image = $("<img src=" + obj.image + ">");
+    if (correct === true) {
+      verdict.addClass('correct');
+      verdict.text('YOU ARE CORRECT!');
+    };
+    if (correct === false) {
+      verdict.addClass('incorrect');
+      verdict.text('YOU ARE WRONG!');
+    };
+    if (timesUp === true) {
+      verdict.addClass('times-up');
       verdict.text("TIME'S UP!");
     };
 
-    $( '#triviaSpace').append(verdict).append(correctAnswer).append(factText).append(image);
+    $('#triviaSpace').append(verdict).append(correctAnswer).append(factText).append(image);
   }
 
-  //TRACKS TIME IN THE TITLE CARD BETWEEN QUESTIONS
+  // TRACKS TIME IN THE TITLE CARD BETWEEN QUESTIONS
   function tCardCountdown (secs, obj) {
     if (secs < 1) {
       loopcounter++;
       clearTimeout(tccardTimer);
-      timesUp=false;
+      timesUp = false;
       gamePlay();
     } else {
-      $( "#timer" ).html('<p> Time Until Next Question: ' + secs + ' seconds</p>');
+      $('#timer').html('<p> Time Until Next Question: ' + secs + ' seconds</p>');
       secs--;
-      tccardTimer = setTimeout(tCardCountdown, 1000, secs, obj);;
+      tccardTimer = setTimeout(tCardCountdown, 1000, secs, obj); ;
     }
   }
 
-  //TRACKS TIMES IN THE QUESTIONS, RUNS THE GAME
+  // TRACKS TIMES IN THE QUESTIONS, RUNS THE GAME
   function questionCountdown (secs, obj) {
     if (secs < 1) {
       clearTimeout(timer);
-      timesUp=true;
+      timesUp = true;
       renderTitleCard(obj)
     } else {
-      $( "#timer" ).html('<p> Time Remaining: ' + secs + ' seconds</p>');
+      $('#timer').html('<p> Time Remaining: ' + secs + ' seconds</p>');
       renderQuestion(obj);
       checkGuess(obj);
       secs--;
-      timer = setTimeout(questionCountdown, 1000, secs, obj);;
+      timer = setTimeout(questionCountdown, 1000, secs, obj); ;
     }
   }
 
-  //BUILDS THE QUESTIONS AND POTENTIAL ANSWERS
-  function renderQuestion(obj) {
-    $(".ruleText").addClass("hidden");
-    $('#timer').removeClass("hidden");
-    $("#triviaSpace").removeClass("hidden");
-    $("#triviaSpace").empty(); // empties out the previous stuff
-    var triviaBlock = $("<div>"); //creating an empty div, assigning it to this variable
+  // BUILDS THE QUESTIONS AND POTENTIAL ANSWERS
+  function renderQuestion (obj) {
+    $('.ruleText').addClass('hidden');
+    $('#timer').removeClass('hidden');
+    $('#triviaSpace').removeClass('hidden');
+    $('#triviaSpace').empty(); // empties out the previous stuff
+    var triviaBlock = $('<div>'); // creating an empty div, assigning it to this variable
     var questionText = $('<h3 id="questionText">'); // creates the div for the Trivia Question
     questionText.text(obj.text); // pulls in the question text, puts it in the div for questionText
+    // eslint-disable-next-line quotes
     questionText.append("<br><br>");
     triviaBlock.append(questionText); // appends the questionText to the triviaBlock div
-    $( "#triviaSpace").append(triviaBlock); // Renders the trivia block so far
-    //need to build the for loop for possible answers
-    for (i=0; i<4; i++) {
-      var answerBlock = $('<p class="answerBlock">'); 
-      answerBlock.text(obj.options[i]).attr("id", "answer" + i);
-      $( "#triviaSpace").append(answerBlock);
+    $('#triviaSpace').append(triviaBlock); // Renders the trivia block so far
+    // the for loop for possible answers
+    for (i = 0; i < 4; i++) {
+      var answerBlock = $('<p class="answerBlock">');
+      answerBlock.text(obj.options[i]).attr('id', 'answer' + i);
+      $('#triviaSpace').append(answerBlock);
     };
   };
 
-  //CALLS questionCountdown for each each question
+  // CALLS questionCountdown for each each question
   function gamePlay () {
-    if(loopcounter < triviaQuestions.length) {
+    if (loopcounter < triviaQuestions.length) {
       questionCountdown(15, triviaQuestions[loopcounter]);
     } else {
       gameOver();
     };
   }
 
-  //RESETS THE GAME
-  function reset() {
-    correctA=0;
-    incorrectA=0;
-    timesUp=false;
-    loopcounter=0; 
-    correct=false;
+  // RESETS THE GAME
+  function reset () {
+    correctA = 0;
+    incorrectA = 0;
+    timesUp = false;
+    loopcounter = 0;
+    correct = false;
     questionCountdown(15, triviaQuestions[loopcounter]);
   }
 
-  //WHAT HAPPENS WHEN THE GAME IS OVER
-  function gameOver() {
-    $( '#timer' ).empty() //empties out the timer div
-    $( '#triviaSpace' ).empty() //empties out the triviaSpace Div
+  // LOGIC FOR WHAT HAPPENS WHEN THE GAME IS OVER
+  function gameOver () {
+    $('#timer').empty() // empties out the timer div
+    $('#triviaSpace').empty() // empties out the triviaSpace Div
     var gameOver = $("<h2 id='gameOver'>");
+    // eslint-disable-next-line quotes
     gameOver.text("GAME OVER!");
     var scoreBoard = $("<div id='scoreBoard'>")
     scoreBoard.html('<h4>Correct Answers: ' + correctA + '</h4> <br> <h4>Incorrect Answers: ' + incorrectA + '</h4>');
-    var resetButton=$("<button id='reset'>Play Again? </button>")
-    $( '#triviaSpace' ).append(gameOver).append(scoreBoard).append(resetButton);
-    $( "#reset").on("click", function(){ // if the reset button is clicked, reset the game
+    var resetButton = $("<button id='reset'>Play Again? </button>")
+    $('#triviaSpace').append(gameOver).append(scoreBoard).append(resetButton);
+    $('#reset').on('click', function () { // if the reset button is clicked, reset the game
       reset();
     })
-
   }
 
-  //GAME PLAY
+  // GAME PLAY
 
-  //initial call
+  // initial call
 
-  $( "#start").on("click", function(){ // if the reset button is clicked, reset the game
+  $('#start').on('click', function () { // if the reset button is clicked, reset the game
     reset();
-    $("#start").addClass("hidden");
+    $('#start').addClass('hidden');
   })
-
-}); //end of ready wrap function
+}); // end of ready wrap function
