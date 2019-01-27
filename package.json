@@ -1,0 +1,19 @@
+{
+  "name": "triviagame",
+  "version": "1.0.0",
+  "description": "A timed JavaScript Trivia game about space. Nine questions, with animated interstitial cards. <br> Link to the deployed page: https://eghove.github.io/SpaceTriviaGame/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eghove/SpaceTriviaGame.git"
+  },
+  "author": "Eric Hove",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eghove/SpaceTriviaGame/issues"
+  },
+  "homepage": "https://github.com/eghove/SpaceTriviaGame#readme"
+}
