@@ -12,3 +12,10 @@ Super Space Trivia uses the following technologies:
 * JavaScript, and 
 * JQuery.
 
+## What Does Super Space Trivia Look Like?
+
+![Super Space Trivia Title Screen](https://eghove.github.io/img/portfolio/Space-Trivia.PNG "Super Space Trivia Title Screen")
+
+![Super Space Trivia Question Screen](https://eghove.github.io/img/portfolio/space-trivia-1.PNG "Super Space Trivia Question Screen")
+
+![Super Space Trivia Answer Screen](https://eghove.github.io/img/portfolio/space-trivia-2.PNG "Super Space Trivia Answer Screen")
